@@ -9,26 +9,10 @@ import numpy as np
 import torch
 
 net0 = torch.load('trained_model/net_xiao10.pkl')
-#net0.eval()
 
-
-import torch.nn as nn
-from torchvision.models import resnet50
-from torchvision.models.feature_extraction import get_graph_node_names
-from torchvision.models.feature_extraction import create_feature_extractor
-from torchvision.models.detection.mask_rcnn import MaskRCNN
-from torchvision.models.detection.backbone_utils import LastLevelMaxPool
-from torchvision.ops.feature_pyramid_network import FeaturePyramidNetwork
-
-
-'''方法1，直接可视化'''
-import torch
-import torchvision
-from PIL import Image
-import torchvision.models as models
 import torch.nn as nn
 from matplotlib import pyplot as plt
-import math
+
 
 #print(net0)
 conv_layers = []
