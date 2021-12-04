@@ -84,8 +84,8 @@ class FlameSet(data.Dataset):
             mydatalist = ['4_all_ready.csv', '5_normal.csv']
             mylabellist = [0, 1]
         elif kind == 'classify':
-            mydatalist = ['2_foreign_body.csv', '3_no_base.csv', '4_all_ready.csv', '5_normal.csv']
-            mylabellist = [1, 2, 3, 4]
+            mydatalist = ['1_incline.csv', '2_foreign_body.csv', '3_no_base.csv', '4_all_ready.csv', '5_normal.csv']
+            mylabellist = [0, 1, 2, 3, 4]
         else:
             print("wrong rpm value: '{}'".format(kind))
             exit(1)
@@ -104,19 +104,15 @@ class FlameSet(data.Dataset):
             # n_split = 4 * n // 5
             self.dataset = np.vstack((self.dataset, clips))  # xiao: 把切片导入到数据 vstack是垂直组合两个array
             self.label += [mylabellist[idx]] * n  # xiao:在这才是打标签吧
-            # xiao: 将数据分成traindata(4/5)和testdata(1/5)
-            # 先根据上面的函数获取test_index
 
-            train_index = getRandomIndex(n, n*3//4,self.data_id)
+            train_index = getRandomIndex(n, n*4//5,self.data_id)
             # 再讲test_index从总的index中减去就得到了train_index
             test_index = list(set(list(range(self.data_id,n+self.data_id)))-set(train_index))
-            print(train_index)
-            print(test_index)
+            #print(train_index)
+            #print(test_index)
             self.traindata_id += train_index
             self.testdata_id += test_index
             self.data_id += n
-            # print(self.traindata_id)
-            # print(train_index)
 
         if dimension == '2D':
             self.transforms = process1

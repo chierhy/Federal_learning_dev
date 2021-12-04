@@ -17,7 +17,7 @@ import matplotlib.image as mpimg  # mpimg 用于读取图片
 from torchvision import transforms
 
 ## load the dataset
-import dataset
+
 import xiaodataset
 def model_vote():
     net0=torch.load('trained_model/net_xiao0.pkl')

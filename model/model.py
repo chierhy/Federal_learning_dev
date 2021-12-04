@@ -88,6 +88,57 @@ class CNN2d_classifier(nn.Module):  # nn.module 相当于是pytorch的基本单�
         x = self.softmax(x)
         return x
 
+class cnn2d_xiao(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.features_1 = nn.Sequential(
+            nn.Conv2d(1, 32, 5, padding=2),
+            #nn.BatchNorm2d(32),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
+        self.features_2 = nn.Sequential(
+            nn.Conv2d(32, 64, 3, padding=1),
+            #nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.features_3 = nn.Sequential(
+            nn.Conv2d(64, 128, 3, padding=1),
+            #nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.features_4 = nn.Sequential(
+            nn.Conv2d(128, 256, 3, padding=1),
+            #nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.classifier = nn.Sequential(
+            nn.Linear(2304, 288),
+            nn.ReLU(inplace=True),
+            nn.Linear(288, 72),
+            nn.ReLU(inplace=True),
+            nn.Linear(72, 10),
+            nn.LogSoftmax(dim=1)
+        )
+
+    def forward(self, x):
+        # print(x.shape)
+        x = self.features_1(x)
+        # print(x.shape)
+        x = self.features_2(x)
+        # print(x.shape)
+        x = self.features_3(x)
+        #print(x.shape)
+        x = self.features_4(x)
+        #print(x.shape)
+        x = x.view(x.size(0), -1)
+        #print(x.shape)
+        x = self.classifier(x)
+        #print(x.shape)
+        return x
 
 class CNN2d_fitting_xiao(nn.Module):
 
@@ -104,24 +155,29 @@ class CNN2d_fitting_xiao(nn.Module):
         self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, x):
-        # print (x.shape)
+        print (x.shape)
         x = self.pool(F.relu(self.conv1(x)))
-        # print (x.shape)
+        print (x.shape)
         x = self.pool(F.relu(self.conv2(x)))
-        # print (x.shape)
+        print (x.shape)
         x = self.pool(F.relu(self.conv3(x)))
-        # print (x.shape)
+        print (x.shape)
         x = self.pool(F.relu(self.conv4(x)))
-        # print(x.shape)
+        print(x.shape)
         x = x.view(x.size(0), -1)  ## reshaping
-        # print(x.shape)
+        print(x.shape)
         x = F.relu(self.linear1(x))
-        # print(x.shape)
+        print(x.shape)
         x = F.relu(self.linear2(x))
         x = self.linear3(x)
         x = self.softmax(x)
-        # print(x.shape)
+        print(x.shape)
         return x
+
+    def showweight(self):
+        print(self.modules())
+
+
 
 class CNN2d_fitting(nn.Module):
     

@@ -14,7 +14,7 @@ import torch
 import matplotlib.pyplot as plt  # plt 用于显示图片
 
 ## load the dataset 
-import dataset
+
 import xiao_dataset_random
 import xiaodataset
 
@@ -46,7 +46,7 @@ from torch import nn
 
 import model
 
-net = model.CNN2d_classifier_xiao()  # 选择神经网络模型
+net = model.cnn2d_xiao()  # 选择神经网络模型
 
 import torch.optim as optim
 
@@ -63,7 +63,6 @@ for epoch in range(100):
 
         out = net(x)
         # print(out, y)
-
         loss = loss_function(out, y)
 
         loss.backward()  # 计算倒数
@@ -78,16 +77,16 @@ for epoch in range(100):
 index = np.linspace(1, len(train_loss), len(train_loss))  # 训练结束，绘制损失值变化图
 plt.figure()
 plt.plot(index, train_loss)
-plt.title("clip size=5184")
+plt.title("clip size=2304")
 plt.show()
 
 PATH = 'trained_model/net_xiao10.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
 torch.save(net, PATH)
 
 # Model class must be defined somewhere
-net = torch.load(PATH)     # 加载训练过的模型
+#net = torch.load(PATH)     # 加载训练过的模型
 
-net.eval()
+#net.eval()
 
 total_correct = 0
 for x, y in trainloader:  # 训练误差
