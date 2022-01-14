@@ -103,7 +103,7 @@ loss_function = nn.NLLLoss()  # classify
 
 train_loss, valid_loss = [], []
 
-for epoch in range(20):
+for epoch in range(200):
     net.train()
     for batch_idx, (x, y) in enumerate(trainloader):
 
@@ -115,10 +115,15 @@ for epoch in range(20):
         optimizer.step()  # w' = w - Ir*grad 模型参数更新
         optimizer.zero_grad()
 
-        if batch_idx % 10 == 0:  # 训练过程，输出并记录损失值
-            print(epoch, batch_idx, loss.item())
+        # if batch_idx % 10 == 0:  # 训练过程，输出并记录损失值
+        #     print(epoch, batch_idx, loss.item())
 
         train_loss.append(loss.item())  # loss仍然有一个图形副本。在这种情况中，可用.item()来释放它.(提高训练速度技巧)
+    if loss.item()<0.01:
+        print("break at epoch ",epoch)
+        break
+    if epoch==199:
+        print("it need more than 200 epoch to best fit this situation")
 
 index = np.linspace(1, len(train_loss), len(train_loss))  # 训练结束，绘制损失值变化图
 plt.figure()
@@ -141,7 +146,7 @@ for x, y in trainloader:  # 训练误差
 # train_batch_size确保得到的精准度真实 （xiao）
 total_num = len(trainloader) * train_batch_size
 acc = total_correct / total_num
-print(total_correct,total_num)
+# print(total_correct,total_num)
 print('train_acc', acc)
 
 total_correct = 0
@@ -155,6 +160,6 @@ for x, y in validloader:  # 测试误差
 
 total_num = len(validloader) * valid_batch_size
 acc = total_correct / total_num
-print(total_correct,total_num)
+# print(total_correct,total_num)
 print('test_acc', acc)
 exit(1)

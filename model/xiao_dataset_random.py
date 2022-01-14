@@ -73,22 +73,22 @@ class FlameSet(data.Dataset):
 
         if kind == 'incline':
             mydatalist = ['1_incline.csv', '5_normal.csv']
-            mylabellist = [0, 1]  # 现在这里应该是打标签吧？（xiao）
+            mylabellist = [0, 4]  # 现在这里应该是打标签吧？（xiao）
         elif kind == 'foreign_body':
             mydatalist = ['2_foreign_body.csv', '5_normal.csv']
-            mylabellist = [0, 1]
+            mylabellist = [1, 4]
         elif kind == 'no_base':
             mydatalist = ['3_no_base.csv', '5_normal.csv']
-            mylabellist = [0, 1]
+            mylabellist = [2, 4]
         elif kind == 'all_ready':
             mydatalist = ['4_all_ready.csv', '5_normal.csv']
-            mylabellist = [0, 1]
+            mylabellist = [3, 4]
         elif kind == 'classify':
             mydatalist = ['1_incline.csv', '2_foreign_body.csv', '3_no_base.csv', '4_all_ready.csv', '5_normal.csv']
             mylabellist = [0, 1, 2, 3, 4]
         elif kind == 'try':
             mydatalist = ['1_incline.csv', '3_no_base.csv', '5_normal.csv']
-            mylabellist = [0, 1, 2]
+            mylabellist = [0, 2, 4]
         else:
             print("wrong rpm value: '{}'".format(kind))
             exit(1)

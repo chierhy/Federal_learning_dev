@@ -34,13 +34,13 @@ for i in range(len(model_children)):
                 conv_layers.append(model_children[i][j])
 
 #print(counter)
-
-for i in range(4):
-    # print(model_weights[i])
-    print(model_weights[i].shape)
-    plt.subplot(2, 2, i+1)
-    plt.axis('off')
-    plt.imshow(model_weights[0][i][0, :, :].detach(), cmap='gray')
+# 画出卷积核的灰度图
+# for i in range(4):
+#     # print(model_weights[i])
+#     print(model_weights[i].shape)
+#     plt.subplot(2, 2, i+1)
+#     plt.axis('off')
+#     plt.imshow(model_weights[0][i][0, :, :].detach(), cmap='gray')
 #plt.show()
 
 def weight():

@@ -20,7 +20,7 @@ import xiaodataset
 
 #cifar = dataset.FlameSet('gear_fault', 2304, '2D', 'incline')
 
-cifar = xiao_dataset_random.FlameSet('L_fault', 2304, '2D', 'classify')
+cifar = xiao_dataset_random.FlameSet('insert_fault', 2304, '2D', 'try')
 
 traindata_id, testdata_id = cifar._shuffle()  # xiao：随机生成训练数据集与测试数据集
 
@@ -57,7 +57,7 @@ loss_function = nn.NLLLoss()  # classify
 
 train_loss, valid_loss = [], []
 
-for epoch in range(20):
+for epoch in range(200):
     net.train()
     for batch_idx, (x, y) in enumerate(trainloader):
 
@@ -69,25 +69,29 @@ for epoch in range(20):
         optimizer.step()  # w' = w - Ir*grad 模型参数更新
         optimizer.zero_grad()
 
-        if batch_idx % 10 == 0:  # 训练过程，输出并记录损失值
-            print(epoch, batch_idx, loss.item())
+        # if batch_idx % 10 == 0:  # 训练过程，输出并记录损失值
+        #     print(epoch, batch_idx, loss.item())
 
         train_loss.append(loss.item())  # loss仍然有一个图形副本。在这种情况中，可用.item()来释放它.(提高训练速度技巧)
-
+    if loss.item()<0.01:
+        print("break at epoch ",epoch)
+        break
+    if epoch==199:
+        print("it need more than 200 epoch to best fit this situation")
 index = np.linspace(1, len(train_loss), len(train_loss))  # 训练结束，绘制损失值变化图
 plt.figure()
 plt.plot(index, train_loss)
 plt.title("clip size=2304")
 plt.show()
 
-# PATH = 'trained_model/net_xiao.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
+PATH = 'trained_model/net_xiao.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
 # #PATH = 'trained_model/net_xiao10.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
-# torch.save(net, PATH)
+torch.save(net, PATH)
 
 # Model class must be defined somewhere
 #net = torch.load(PATH)     # 加载训练过的模型
 
-#net.eval()
+# net.eval()
 
 total_correct = 0
 for x, y in trainloader:  # 训练误差

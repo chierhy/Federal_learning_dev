@@ -7,7 +7,7 @@ Created on Fri Jun 28 09:25:00 2022
 
 
 def f_e(weight):
-    print(weight[0][0][0])
+    # print(weight[0][0][0])
     # print(weight[0][0][0][0][0].data)
     # weight[0][0][0][0][0].data*=0
     # print(weight[0][0][0][0][0])
@@ -24,6 +24,7 @@ def f_e(weight):
                 # print(weight_med)
                 for l in range(0, len(weight[i][j][k])):  # i=0,j=0,l=0,len=5
                     for m in range(0, len(weight[i][j][k][l])):
+                        print(weight[i][j][k][l][m])
                         # print(weight[i][j][k][l][m].detach().numpy()<critical_max)
                         # print(weight[i][j][k][l][m].detach().numpy()>critical_min)
                         if (weight[i][j][k][l][m].detach().numpy() < critical_max and weight[i][j][k][l][
@@ -31,6 +32,6 @@ def f_e(weight):
                             weight[i][j][k][l][m].data *= 0
                             weight[i][j][k][l][m].data += 1
                             weight[i][j][k][l][m].data *= weight_med
-
-    print(weight[0][0][0])
+    print("feature enhanced")
+    # print(weight[0][0][0])
     return weight
