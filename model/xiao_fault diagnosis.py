@@ -21,12 +21,15 @@ import matplotlib.image as mpimg  # mpimg 用于读取图片
 from torchvision import transforms
 
 ## load the dataset
-import dataset
 import xiaodataset
+import xiao_dataset_random
 
 #cifar = dataset.FlameSet('gear_fault', 2304, '2D', 'incline')
-for ind in range(0,6):
-    cifar = xiaodataset.FlameSet('gear_fault', 2304, '2D', 'incline', ind)
+exp='insert_fault'
+kind=['incline', 'foreign_body', 'no_base', 'all_ready', 'classify']
+for ind in range(0,4):
+    # cifar = xiaodataset.FlameSet('gear_fault', 2304, '2D', 'incline', ind)
+    cifar = xiao_dataset_random.FlameSet(exp, 2304, '2D', kind[ind])
 
     traindata_id, testdata_id = cifar._shuffle() #xiao：随机生成训练数据集与测试数据集
 
@@ -40,7 +43,7 @@ for ind in range(0,6):
     # create iterator objects for train and valid datasets
     # xiao：Dataloader是个迭代器，也是Pytorch的数据接口
     # xiao: 数据批不恰当时会严重影响精准度
-    train_batch_size=10
+    train_batch_size=30
 
     # 看起来trainload也需要迭代对应。
 
@@ -92,7 +95,7 @@ for ind in range(0,6):
     plt.savefig("lossfig/dimension index%d.jpg" % ind)
     # print('net_xiao%d.pkl have done' % index)
     print(ind)
-    PATH = 'trained_model/net_xiao%d.pkl' % ind  # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
+    PATH = 'trained_model/net_xiao_%s_%s.pkl' % (exp, kind[ind])  # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
     torch.save(net, PATH)
 
     total_correct = 0

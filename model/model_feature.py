@@ -8,7 +8,9 @@ Created on Sun Nov 28 09:49:00 2021
 import numpy as np
 import torch
 
-net0 = torch.load('trained_model/net_xiao10.pkl')
+# net0 = torch.load('trained_model/net_xiao.pkl')
+
+net0 = torch.load('trained_model/net_xiao_insert_fault_incline.pkl')
 
 import torch.nn as nn
 from matplotlib import pyplot as plt
@@ -33,11 +35,15 @@ for i in range(len(model_children)):
                 model_weights.append(model_children[i][j].weight)
                 conv_layers.append(model_children[i][j])
 
-print(counter)
+#print(counter)
 
 for i in range(4):
-    print(model_weights[i])
+    # print(model_weights[i])
+    print(model_weights[i].shape)
     plt.subplot(2, 2, i+1)
     plt.axis('off')
     plt.imshow(model_weights[0][i][0, :, :].detach(), cmap='gray')
-plt.show()
+#plt.show()
+
+def weight():
+    return model_weights

@@ -54,9 +54,9 @@ class FlameSet(data.Dataset):
         if exp not in ('gear_fault', 'insert_fault', 'L_fault'):
             print("wrong experiment name: '{}'".format(exp))
             exit(1)
-        if kind not in ('incline', 'foreign_body', 'no_base', 'all_ready', 'classify'):
+        if kind not in ('incline', 'foreign_body', 'no_base', 'all_ready', 'classify', 'try'):
             print("wrong rpm value: '{}'".format(kind))
-            exit(1)  #xiao: 这个貌似是看是什么训练模型
+            exit(1)
         self.length = length
         self.data_id = 0
         self.dataset = np.zeros((0, self.length))  # xiao: 创建了一个空的array
@@ -86,6 +86,9 @@ class FlameSet(data.Dataset):
         elif kind == 'classify':
             mydatalist = ['1_incline.csv', '2_foreign_body.csv', '3_no_base.csv', '4_all_ready.csv', '5_normal.csv']
             mylabellist = [0, 1, 2, 3, 4]
+        elif kind == 'try':
+            mydatalist = ['1_incline.csv', '3_no_base.csv', '5_normal.csv']
+            mylabellist = [0, 1, 2]
         else:
             print("wrong rpm value: '{}'".format(kind))
             exit(1)

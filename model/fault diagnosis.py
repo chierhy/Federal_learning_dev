@@ -13,14 +13,14 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt  # plt 用于显示图片
 
-## load the dataset 
+## load the dataset
 
 import xiao_dataset_random
 import xiaodataset
 
 #cifar = dataset.FlameSet('gear_fault', 2304, '2D', 'incline')
 
-cifar = xiao_dataset_random.FlameSet('insert_fault', 2304, '2D', 'classify')
+cifar = xiao_dataset_random.FlameSet('L_fault', 2304, '2D', 'classify')
 
 traindata_id, testdata_id = cifar._shuffle()  # xiao：随机生成训练数据集与测试数据集
 
@@ -46,7 +46,7 @@ from torch import nn
 
 import model
 
-net = model.cnn2d_xiao()  # 选择神经网络模型
+net = model.CNN2d_classifier_xiao()  # 选择神经网络模型
 
 import torch.optim as optim
 
@@ -57,7 +57,7 @@ loss_function = nn.NLLLoss()  # classify
 
 train_loss, valid_loss = [], []
 
-for epoch in range(100):
+for epoch in range(20):
     net.train()
     for batch_idx, (x, y) in enumerate(trainloader):
 
@@ -80,8 +80,9 @@ plt.plot(index, train_loss)
 plt.title("clip size=2304")
 plt.show()
 
-PATH = 'trained_model/net_xiao10.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
-torch.save(net, PATH)
+# PATH = 'trained_model/net_xiao.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
+# #PATH = 'trained_model/net_xiao10.pkl' # net1为1D卷积神经网络模型，net2为2D卷积神经网络模型
+# torch.save(net, PATH)
 
 # Model class must be defined somewhere
 #net = torch.load(PATH)     # 加载训练过的模型
