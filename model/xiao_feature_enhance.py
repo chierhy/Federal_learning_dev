@@ -24,7 +24,7 @@ def f_e(weight):
                 # print(weight_med)
                 for l in range(0, len(weight[i][j][k])):  # i=0,j=0,l=0,len=5
                     for m in range(0, len(weight[i][j][k][l])):
-                        print(weight[i][j][k][l][m])
+                        # print(weight[i][j][k][l][m])
                         # print(weight[i][j][k][l][m].detach().numpy()<critical_max)
                         # print(weight[i][j][k][l][m].detach().numpy()>critical_min)
                         if (weight[i][j][k][l][m].detach().numpy() < critical_max and weight[i][j][k][l][
