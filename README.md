@@ -1,7 +1,7 @@
 # Federal_learning_dev
 
 Federal learning 2.1
-created by Xiao Peng, Lin Ze, Hao Yin, Dr. Wang Chuang
+created by Xiao Peng, Lin Ze, Hao Ying, Dr. Wang Chuang
 
 fault diagnosis.py is the main processing file for "overall model"
 xiao_fault diagnosis.py is the main processing file for "vote model"
